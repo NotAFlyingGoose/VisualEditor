@@ -1,12 +1,17 @@
 package com.runningmanstudios.visualedit;
 
+import com.runningmanstudios.visualedit.tranfer.DragDropEvent;
+import com.runningmanstudios.visualedit.tranfer.DragDropList;
+import com.runningmanstudios.visualedit.tranfer.DragDropListener;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.io.Serializable;
 
-public class Visual extends JFrame {
+public class Visual extends JFrame implements Serializable {
 
     public Visual() {
         super("Visual Tests");
@@ -32,9 +37,9 @@ public class Visual extends JFrame {
                 .addInput(new Input(Input.STRING, "data")),
                 new Codon("stop")};
         DragDropList<Codon> codons = new DragDropList<>();
-        codons.setCAN_DROP_ON_SELF(false);
-        codons.setOPEN_TO_OTHERS(false);
-        codons.setREMOVE_CLONE(false);
+        //codons.setCAN_DROP_ON_SELF(false);
+        //codons.setOPEN_TO_OTHERS(false);
+        //codons.setREMOVE_CLONE(false);
         codons.addAll(availableCodons);
         codons.setBorder(codonsTitle);
 
@@ -47,16 +52,16 @@ public class Visual extends JFrame {
                 Codon code = (Codon) e.getSource();
                 while (code.hasNextInput()) {
                     Input input = code.getNextUnfilledInput();
-                    System.out.println(input.getId());
                     String newName = askForText("Parameter", "Please enter a "+input.getId()+" for the parameter " + input.getTitle());
                     input.setValue(newName);
+                    code.setInput(input);
+                    runner.setItem(code);
                 }
-                System.out.println("drop " + code.getName());
+                runner.reloadObjects();
             }
 
             @Override
             public void onDragAction(DragDropEvent e) {
-                System.out.println("drag " + e.getSource().toString());
             }
         });
 

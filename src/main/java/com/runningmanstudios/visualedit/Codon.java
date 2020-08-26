@@ -28,6 +28,15 @@ public class Codon implements Serializable {
         return null;
     }
 
+    public void setInput(Input input) {
+        for (int i = 0; i < inputs.size(); i++) {
+            if (inputs.get(i).getTitle().equals(input.getTitle())) {
+                inputs.set(i, input);
+                break;
+            }
+        }
+    }
+
     public boolean hasNextInput() {
         return getNextUnfilledInput() != null;
     }
@@ -37,11 +46,21 @@ public class Codon implements Serializable {
     }
 
     public String getDisplay() {
+        for (Input input : inputs) {
+            if (input.getValue() != null) {
+                display = display.replace(input.getTitle(), input.getValue().toString());
+            }
+        }
         return display;
     }
 
     @Override
     public String toString() {
         return getDisplay();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return ((Codon) obj).getName().equals(getName());
     }
 }

@@ -8,9 +8,9 @@ public class Input implements Serializable {
     public final static String STRING = "String";
     public final static String VARIABLE = "Variable";
     public final static String ANY = "Any";
+    private final String id;
+    private final String title;
     private Object value = null;
-    private String id;
-    private String title;
 
     public Input(String id, String title) {
         this.id = id;

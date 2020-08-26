@@ -1,4 +1,4 @@
-package com.runningmanstudios.visualedit;
+package com.runningmanstudios.visualedit.tranfer;
 
 public class DragDropEvent {
     private final Object source;
