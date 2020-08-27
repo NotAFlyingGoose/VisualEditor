@@ -1,6 +1,7 @@
 package com.runningmanstudios.visualedit.tranfer;
 
 import com.runningmanstudios.visualedit.StringSerializer;
+import com.runningmanstudios.visualedit.components.DragDropList;
 
 import javax.swing.*;
 import java.awt.*;

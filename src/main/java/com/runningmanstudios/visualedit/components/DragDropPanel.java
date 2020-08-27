@@ -1,4 +1,8 @@
-package com.runningmanstudios.visualedit.tranfer;
+package com.runningmanstudios.visualedit.components;
+
+import com.runningmanstudios.visualedit.tranfer.DragDropTransferHandler;
+import com.runningmanstudios.visualedit.tranfer.IDragDropOrigin;
+import com.runningmanstudios.visualedit.tranfer.TransferPackage;
 
 import javax.swing.*;
 import java.awt.*;

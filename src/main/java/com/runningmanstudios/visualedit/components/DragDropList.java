@@ -1,10 +1,10 @@
-package com.runningmanstudios.visualedit.tranfer;
+package com.runningmanstudios.visualedit.components;
 
 import com.runningmanstudios.visualedit.StringSerializer;
+import com.runningmanstudios.visualedit.tranfer.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -211,7 +211,7 @@ public class DragDropList <T extends Serializable> extends JList<T> implements I
             }
             //actually add the item
             try {
-                addItem(pasteIndex + (pasteIndex!=0?1:0), (T) data.getSource());
+                addItem(pasteIndex + (model.size()!=0?1:0), (T) data.getSource());
             } catch (ArrayIndexOutOfBoundsException e) {
                 addItem((T) data.getSource());
             }
@@ -266,6 +266,7 @@ class ListRenderer<T> extends JLabel implements ListCellRenderer<T> {
             setBackground(list.getBackground());
             setForeground(list.getForeground());
         }
+        setFont(list.getFont());
 
         try {
             setText(StringSerializer.deserialize(list.getModel().getElementAt(index).toString()).toString());

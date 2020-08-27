@@ -1,8 +1,6 @@
 package com.runningmanstudios.visualedit;
 
-import com.runningmanstudios.visualedit.tranfer.DragDropEvent;
-import com.runningmanstudios.visualedit.tranfer.DragDropList;
-import com.runningmanstudios.visualedit.tranfer.DragDropListener;
+import com.runningmanstudios.visualedit.components.DragDropList;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -18,6 +16,7 @@ public class Visual extends JFrame implements Serializable {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(800, 600));
+        setSize(800, 600);
         setLayout(null);
 
 
@@ -34,40 +33,36 @@ public class Visual extends JFrame implements Serializable {
         Codon[] availableCodons = new Codon[] {
                 new Codon("start"),
                 new Codon("print")
-                .addInput(new Input(Input.STRING, "data")),
+                        .addInput(new CodonInput(CodonInput.STRING, "data")),
+                new Codon("math")
+                        .addInput(new CodonInput(CodonInput.NUMBER, "value1"))
+                        .addInput(new CodonInput(CodonInput.DROPDOWN, "operation"))
+                        .addInput(new CodonInput(CodonInput.NUMBER, "value2")),
+                new Codon("concatenate")
+                        .addInput(new CodonInput(CodonInput.STRING, "value1"))
+                        .addInput(new CodonInput(CodonInput.STRING, "value2")),
+                new Codon("boolean condition")
+                        .addInput(new CodonInput(CodonInput.BOOLEAN, "value1"))
+                        .addInput(new CodonInput(CodonInput.DROPDOWN, "operation"))
+                        .addInput(new CodonInput(CodonInput.BOOLEAN, "value2")),
                 new Codon("stop")};
         DragDropList<Codon> codons = new DragDropList<>();
-        //codons.setCAN_DROP_ON_SELF(false);
-        //codons.setOPEN_TO_OTHERS(false);
-        //codons.setREMOVE_CLONE(false);
+        codons.setCAN_DROP_ON_SELF(false);
+        codons.setOPEN_TO_OTHERS(false);
+        codons.setREMOVE_CLONE(false);
         codons.addAll(availableCodons);
         codons.setBorder(codonsTitle);
+        codons.setFont(new Font(codons.getFont().getName(), codons.getFont().getStyle(), 20));
+        JScrollPane codonsScroll = new JScrollPane(codons);
 
         TitledBorder runnerTitle = new TitledBorder("Code");
-        DragDropList<Codon> runner = new DragDropList<>();
+        CodeDisplay runner = new CodeDisplay();
         runner.setBorder(runnerTitle);
-        runner.addDragDropListener(new DragDropListener() {
-            @Override
-            public void onDropAction(DragDropEvent e) {
-                Codon code = (Codon) e.getSource();
-                while (code.hasNextInput()) {
-                    Input input = code.getNextUnfilledInput();
-                    String newName = askForText("Parameter", "Please enter a "+input.getId()+" for the parameter " + input.getTitle());
-                    input.setValue(newName);
-                    code.setInput(input);
-                    runner.setItem(code);
-                }
-                runner.reloadObjects();
-            }
+        JScrollPane runnerScroll = new JScrollPane(runner);
 
-            @Override
-            public void onDragAction(DragDropEvent e) {
-            }
-        });
-
-        sections.setDividerLocation(getWidth()/2);
-        sections.setLeftComponent(runner);
-        sections.setRightComponent(codons);
+        sections.setDividerLocation((int)((3.0/4.0) * getWidth()));
+        sections.setLeftComponent(runnerScroll);
+        sections.setRightComponent(codonsScroll);
 
         add(sections);
 
