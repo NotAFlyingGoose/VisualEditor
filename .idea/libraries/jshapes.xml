@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="jshapes">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../Java Programs/jshapes.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/jshapes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
