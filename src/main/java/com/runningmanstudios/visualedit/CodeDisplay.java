@@ -64,7 +64,7 @@ public class CodeDisplay extends DragDropPanel implements MouseListener, MouseMo
             if (codon instanceof BigBoiCodon) {
                 for (Codon inlineCodon : ((BigBoiCodon) codon).getInnerCodonList()) {
                     inlineCodon.bright = true;
-                    codonY += getCodonRect(inlineCodon).getY();
+                    codonY += getCodonRect(inlineCodon).getHeight();
                 }
                 codonY += codonShape.getHeight() + (codonShape.getHeight()/1.5);
                 g2d.setColor(codonColor);
@@ -186,7 +186,8 @@ public class CodeDisplay extends DragDropPanel implements MouseListener, MouseMo
                         break;
                     }
                     for (Codon inlineCodon : ((BigBoiCodon) codon).getInnerCodonList()) {
-                        botSub += getCodonRect(inlineCodon).getY();
+                        inlineCodon.bright = false;
+                        botSub += getCodonRect(inlineCodon).getHeight();
                     }
                     botSub += codonShape.getHeight() + (codonShape.getHeight()/1.5);
                 }
@@ -240,7 +241,9 @@ public class CodeDisplay extends DragDropPanel implements MouseListener, MouseMo
                 int codonX = (int) bounds.getX();
                 int codonY = (int) bounds.getY();
                 for (Codon inlineCodon : ((BigBoiCodon) next).getInnerCodonList()) {
-                    codonY += getCodonRect(inlineCodon).getY();
+                    inlineCodon.x = new_location.x + 10;
+                    inlineCodon.y = (int) (new_location.y + codonY - bounds.getY() + getCodonRect(inlineCodon).getHeight());
+                    codonY += getCodonRect(inlineCodon).getHeight();
                 }
                 codonY += bounds.getHeight() + (bounds.getHeight()/1.5);
                 RoundRectangle2D.Double sidebar = new RoundRectangle2D.Double(bounds.getX(), bounds.getY() - 10 + bounds.getHeight(), 10, codonY - bounds.getY() + 10, bounds.getArcWidth(), bounds.getArcHeight());
@@ -266,6 +269,9 @@ public class CodeDisplay extends DragDropPanel implements MouseListener, MouseMo
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        for (Codon codon : codons) {
+            codon.bright = false;
+        }
         repaint();
     }
 
