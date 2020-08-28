@@ -6,25 +6,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Codon implements Serializable {
+    public boolean bright = false;
     int x = 50;
     int y = 50;
     Color color = new Color(55, 200, 55);
     private final List<CodonInput> inputs = new ArrayList<>();
     private final String name;
-    private String display;
+    private String display = "";
 
     private Codon lastCode = null;
     private Codon nextCode = null;
 
     public Codon(String name) {
         this.name = name;
-        this.display = name;
+
+    }
+
+    public Codon(String name, Color color) {
+        this.name = name;
+        this.color = color;
     }
 
     public Codon addInput(CodonInput input) {
+        input.color = CodeDisplay.darken(this.color, 50);
         inputs.add(input);
-        if (!this.display.equals(this.name)) this.display+=",";
-        this.display += " `"+input.getTitle()+"`";
+        if (!this.display.equals("")) this.display+=", ";
+        this.display += input.getTitle();
         return this;
     }
 
@@ -62,7 +69,7 @@ public class Codon implements Serializable {
                 display = display.replace(input.getTitle(), input.getValue().toString());
             }
         }
-        return display;
+        return name + "(" + display + ")";
     }
 
     @Override

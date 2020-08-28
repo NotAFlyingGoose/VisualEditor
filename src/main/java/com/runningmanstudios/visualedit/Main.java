@@ -1,10 +1,6 @@
 package com.runningmanstudios.visualedit;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -14,9 +10,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Main extends JPanel {
+    @Override
     public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         g.setColor(Color.black);
         g.fillRect(0, 0, getWidth(), getHeight());
+        g.setColor(Color.white);
+        g.setFont(new Font(g.getFont().getName(), Font.BOLD, 20));
+        g.drawString("cool i guess", 10, 50);
+        g.dispose();
     }
 
     public static void main(String[] args) {

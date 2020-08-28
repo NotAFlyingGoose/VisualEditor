@@ -45,6 +45,8 @@ public class Visual extends JFrame implements Serializable {
                         .addInput(new CodonInput(CodonInput.BOOLEAN, "value1"))
                         .addInput(new CodonInput(CodonInput.DROPDOWN, "operation"))
                         .addInput(new CodonInput(CodonInput.BOOLEAN, "value2")),
+                new BigBoiCodon("if", new Color(155, 55, 155))
+                        .addInput(new CodonInput(CodonInput.BOOLEAN, "condition")),
                 new Codon("stop")};
         DragDropList<Codon> codons = new DragDropList<>();
         codons.setCAN_DROP_ON_SELF(false);

@@ -12,7 +12,7 @@ public class CodonInput implements Serializable {
     public final static String ANY = "Any";
     private final String id;
     private final String title;
-    public Color color = new Color(55, 155, 100);
+    public Color color = Color.gray;
     private Codon value = null;
 
     public CodonInput(String id, String title) {
